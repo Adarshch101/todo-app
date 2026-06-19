@@ -49,29 +49,6 @@ const createAdminTodo = async (req, res) => {
   }
 };
 
-// Admin: Create a todo for another user
-const createTodoForUser = async (req, res) => {
-  try {
-    const { userId, title, description, dueDate, category, completed } = req.body;
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    const todo = new Todo({
-      title,
-      description,
-      dueDate,
-      category,
-      completed,
-      user: userId
-    });
-    await todo.save();
-    res.status(201).json({ message: "Todo created successfully for user", todo });
-  } catch (error) {
-    console.error("Error creating todo for user:", error);
-    res.status(500).json({ message: "Server error" });
-  }
-};
 
 // Admin: Update any todo
 const updateAnyTodo = async (req, res) => {
@@ -125,7 +102,6 @@ module.exports = {
   getAllTodos,
   getUserTodos,
   createAdminTodo,
-  createTodoForUser,
   updateAnyTodo,
   deleteAnyTodo,
   getAllUsers

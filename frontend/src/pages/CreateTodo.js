@@ -9,14 +9,15 @@ const CreateTodo = () => {
   const [dueDate, setDueDate] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { token, isAuthenticated } = useAuth();
+  const { token, isAuthenticated, loading: authLoading } = useAuth();
   const navigate = useNavigate();
 
   React.useEffect(() => {
+    if (authLoading) return;
     if (!isAuthenticated) {
       navigate("/login");
     }
-  }, [isAuthenticated, navigate]);
+  }, [authLoading, isAuthenticated, navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

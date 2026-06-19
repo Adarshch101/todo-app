@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-const { createtodo, gettodos, updatetodo, deletetodo } = require("../controllers/Todos");
+const { createtodo, gettodos, updatetodo, deletetodo,gettodo } = require("../controllers/Todos");
 const auth = require("../middlewares/Auth");
 
 router.post("/create", auth, createtodo);

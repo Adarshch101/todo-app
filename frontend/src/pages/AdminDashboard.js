@@ -8,17 +8,18 @@ const AdminDashboard = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const { token, isAuthenticated } = useAuth();
+  const { token, isAuthenticated, loading: authLoading } = useAuth();
   const [categoryFilter, setCategoryFilter] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (authLoading) return;
     if (!isAuthenticated) {
       navigate("/login");
       return;
     }
     fetchData();
-  }, [isAuthenticated, navigate, token]);
+  }, [authLoading, isAuthenticated, navigate, token]);
 
   const fetchData = async () => {
     try {

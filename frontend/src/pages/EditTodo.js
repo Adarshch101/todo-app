@@ -12,16 +12,17 @@ const EditTodo = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const { token, isAuthenticated } = useAuth();
+  const { token, isAuthenticated, loading: authLoading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (authLoading) return;
     if (!isAuthenticated) {
       navigate("/login");
       return;
     }
     fetchTodo();
-  }, [isAuthenticated, navigate, id, token]);
+  }, [authLoading, isAuthenticated, navigate, id, token]);
 
   const fetchTodo = async () => {
     try {

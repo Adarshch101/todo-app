@@ -99,4 +99,4 @@ const deletetodo = async (req,res) =>{
     }
 };
 
-module.exports = { createtodo, gettodos, updatetodo, deletetodo };
+module.exports = { createtodo, gettodos, updatetodo, deletetodo, gettodo };

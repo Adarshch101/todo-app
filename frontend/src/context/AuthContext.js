@@ -7,24 +7,33 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const savedToken = localStorage.getItem("token");
-    if (savedToken) {
-      setToken(savedToken);
-      // Optionally verify token validity
-    }
-    setLoading(false);
-  }, []);
+ useEffect(() => {
+  const savedToken = localStorage.getItem("token");
+  const savedUser = localStorage.getItem("user");
+
+  if (savedToken) {
+    setToken(savedToken);
+  }
+  if (savedUser) {
+    setUser(JSON.parse(savedUser));
+  }
+  setLoading(false);
+}, []);
+
 
   const login = (token, userData) => {
-    setToken(token);
-    localStorage.setItem("token", token);
-  };
+  setToken(token);
+  setUser(userData);
+  localStorage.setItem("token", token);
+  localStorage.setItem("user", JSON.stringify(userData));
+};
+
 
   const logout = () => {
     setToken(null);
     setUser(null);
     localStorage.removeItem("token");
+    localStorage.removeItem("user");
   };
 
   const value = {

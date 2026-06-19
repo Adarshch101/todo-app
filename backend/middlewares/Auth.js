@@ -3,7 +3,7 @@ const router = express.Router();
 const User = require("../models/User");
 
 
-// Middleware to authenticate user using JWT and also verify if the user is an admin
+// Middleware to authenticate user using JWT 
 const jsonwebtoken = require("jsonwebtoken");
 
 const auth = async (req, res, next) => {

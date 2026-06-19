@@ -6,16 +6,17 @@ const Todos = () => {
   const [todos, setTodos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const { token, isAuthenticated } = useAuth();
+  const { token, isAuthenticated, loading: authLoading } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (authLoading) return;
     if (!isAuthenticated) {
       navigate("/login");
       return;
     }
     fetchTodos();
-  }, [isAuthenticated, navigate, token]);
+  }, [authLoading, isAuthenticated, navigate, token]);
 
   const fetchTodos = async () => {
     try {
